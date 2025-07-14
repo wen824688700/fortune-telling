@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "bazi-mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@smithery/cli@latest",
+        "install",
+        "@cantian-ai/bazi-mcp",
+        "--client",
+        "claude"
+      ]
+    }
+  }
+} 

@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>紫微斗数 - 天机妙算</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="ziwei.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-symbol">☯</div>
+                <span class="logo-text">天机妙算</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item">首页</a>
+                <a href="bazi.html" class="nav-item">八字排盘</a>
+                <a href="ziwei.html" class="nav-item active">紫微斗数</a>
+                <a href="fortune.html" class="nav-item">运势查询</a>
+                <a href="knowledge.html" class="nav-item">命理知识</a>
+            </nav>
+            <div class="nav-user">
+                <button class="login-btn">登录</button>
+                <button class="register-btn">注册</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要内容区域 -->
+    <main class="main-content">
+        <!-- 页面标题 -->
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-title">紫微斗数</h1>
+                <p class="page-subtitle">传统紫微斗数排盘，全面分析人生格局</p>
+            </div>
+        </section>
+
+        <!-- 紫微斗数内容区域 -->
+        <section class="ziwei-content">
+            <div class="container">
+                <!-- 信息输入区域 -->
+                <div class="ziwei-input-panel">
+                    <div class="panel-header">
+                        <h2>个人信息</h2>
+                    </div>
+                    <div class="panel-body">
+                        <form id="ziweiForm" class="ziwei-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="name">姓名</label>
+                                    <input type="text" id="name" name="name" placeholder="请输入您的姓名" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>性别</label>
+                                    <div class="radio-group">
+                                        <label class="radio-label">
+                                            <input type="radio" name="gender" value="male" checked>
+                                            <span class="radio-text">男</span>
+                                        </label>
+                                        <label class="radio-label">
+                                            <input type="radio" name="gender" value="female">
+                                            <span class="radio-text">女</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="birthyear">出生年份</label>
+                                    <div class="select-wrapper">
+                                        <select id="birthyear" name="birthyear" required>
+                                            <option value="">请选择</option>
+                                            <!-- 生成1940-2024年选项 -->
+                                            <script>
+                                                for (let year = 2024; year >= 1940; year--) {
+                                                    document.write(`<option value="${year}">${year}年</option>`);
+                                                }
+                                            </script>
+                                        </select>
+                                        <div class="select-arrow">▼</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="birthmonth">出生月份</label>
+                                    <div class="select-wrapper">
+                                        <select id="birthmonth" name="birthmonth" required>
+                                            <option value="">请选择</option>
+                                            <option value="1">农历一月</option>
+                                            <option value="2">农历二月</option>
+                                            <option value="3">农历三月</option>
+                                            <option value="4">农历四月</option>
+                                            <option value="5">农历五月</option>
+                                            <option value="6">农历六月</option>
+                                            <option value="7">农历七月</option>
+                                            <option value="8">农历八月</option>
+                                            <option value="9">农历九月</option>
+                                            <option value="10">农历十月</option>
+                                            <option value="11">农历十一月</option>
+                                            <option value="12">农历十二月</option>
+                                        </select>
+                                        <div class="select-arrow">▼</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="birthday">出生日</label>
+                                    <div class="select-wrapper">
+                                        <select id="birthday" name="birthday" required>
+                                            <option value="">请选择</option>
+                                            <option value="1">初一</option>
+                                            <option value="2">初二</option>
+                                            <option value="3">初三</option>
+                                            <option value="4">初四</option>
+                                            <option value="5">初五</option>
+                                            <option value="6">初六</option>
+                                            <option value="7">初七</option>
+                                            <option value="8">初八</option>
+                                            <option value="9">初九</option>
+                                            <option value="10">初十</option>
+                                            <option value="11">十一</option>
+                                            <option value="12">十二</option>
+                                            <option value="13">十三</option>
+                                            <option value="14">十四</option>
+                                            <option value="15">十五</option>
+                                            <option value="16">十六</option>
+                                            <option value="17">十七</option>
+                                            <option value="18">十八</option>
+                                            <option value="19">十九</option>
+                                            <option value="20">二十</option>
+                                            <option value="21">廿一</option>
+                                            <option value="22">廿二</option>
+                                            <option value="23">廿三</option>
+                                            <option value="24">廿四</option>
+                                            <option value="25">廿五</option>
+                                            <option value="26">廿六</option>
+                                            <option value="27">廿七</option>
+                                            <option value="28">廿八</option>
+                                            <option value="29">廿九</option>
+                                            <option value="30">三十</option>
+                                        </select>
+                                        <div class="select-arrow">▼</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="birthhour">出生时辰</label>
+                                    <div class="select-wrapper">
+                                        <select id="birthhour" name="birthhour" required>
+                                            <option value="">请选择</option>
+                                            <option value="1">子时 (23:00-01:00)</option>
+                                            <option value="2">丑时 (01:00-03:00)</option>
+                                            <option value="3">寅时 (03:00-05:00)</option>
+                                            <option value="4">卯时 (05:00-07:00)</option>
+                                            <option value="5">辰时 (07:00-09:00)</option>
+                                            <option value="6">巳时 (09:00-11:00)</option>
+                                            <option value="7">午时 (11:00-13:00)</option>
+                                            <option value="8">未时 (13:00-15:00)</option>
+                                            <option value="9">申时 (15:00-17:00)</option>
+                                            <option value="10">酉时 (17:00-19:00)</option>
+                                            <option value="11">戌时 (19:00-21:00)</option>
+                                            <option value="12">亥时 (21:00-23:00)</option>
+                                        </select>
+                                        <div class="select-arrow">▼</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="precise_time" id="precise_time">
+                                    <span class="checkbox-text">我知道精确的出生时间</span>
+                                </label>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="primary-btn">开始排盘</button>
+                                <button type="reset" class="secondary-btn">重置信息</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- 命盘展示区域 -->
+                <div class="ziwei-result" id="ziweiResult" style="display: none;">
+                    <div class="panel-header">
+                        <h2>紫微斗数命盘</h2>
+                    </div>
+                    <div class="panel-body">
+                        <!-- 基本信息 -->
+                        <div class="basic-info">
+                            <div class="info-item">
+                                <span class="info-label">姓名：</span>
+                                <span class="info-value" id="resultName">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">性别：</span>
+                                <span class="info-value" id="resultGender">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">阳历：</span>
+                                <span class="info-value" id="resultSolar">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">农历：</span>
+                                <span class="info-value" id="resultLunar">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">命主：</span>
+                                <span class="info-value" id="resultMaster">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">身主：</span>
+                                <span class="info-value" id="resultBody">-</span>
+                            </div>
+                        </div>
+                        
+                        <!-- 紫微命盘 -->
+                        <div class="ziwei-chart">
+                            <div class="chart-grid">
+                                <!-- 第一行 -->
+                                <div class="chart-cell" data-palace="巳">
+                                    <div class="palace-name">疾厄</div>
+                                    <div class="palace-stars">
+                                        <span class="main-star">天机</span>
+                                        <span class="sub-star">文昌</span>
+                                        <span class="sub-star">天刑</span>
+                                    </div>
+                                </div>
+                                <div class="chart-cell" data-palace="午">
+                                    <div class="palace-name">财帛</div>
+                                    <div class="palace-stars">
+                                        <span class="main-star">太阳</span>
+                                        <span class="main-star">武曲</span>
+                                        <span class="sub-star">右弼</span>
+                                    </div>
+                                </div>
+                                <div class="chart-cell" data-palace="未">
+                                    <div class="palace-name">子女</div>
+                                    <div class="palace-stars">
+                                        <span class="main-star">天同</span>
+                                        <span class="sub-star">天魁</span>
+                                    </div>
+                                </div>
+                                <div class="chart-cell" data-palace="申">
+                                    <div class="palace-name">夫妻</div>
+                                    <div class="palace-stars">
+                                        <span class="main-star">太阴</span>
+                                        <span class="sub-star">红鸾</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- 第二行 -->
+                                <div class="chart-cell" data-palace="辰">
+                                    <div class="palace-name">兄弟</div>
+                                    <div class="palace-stars">
+                                        <span class="main-star">贪狼</span>
+                                        <span class="sub-star">擎羊</span>
+                                    </div>
+                                </div>
+                                <div class="chart-cell center-cell" colspan="2" rowspan="2">
+                                    <div class="center-content">
+                                        <div class="year-info">癸卯年 (2023)</div>
+                                        <div class="person-info">王小明</div>
+                                        <div class="birth-info">农历二月初八 午时</div>
+                                    </div>
+                                </div>
+                                <div class="chart-cell" data-palace="酉">
+                                    <div class="palace-name">官禄</div>
+                                    <div class="palace-stars">
+                                        <span class="main-star">巨门</span>
+                                        <span class="sub-star">天空</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- 第三行 -->
+                                <div class="chart-cell" data-palace="卯">
+                                    <div class="palace-name">命宫</div>
+                                    <div class="palace-stars">
+                                        <span class="main-star">紫微</span>
+                                        <span class="main-star">破军</span>
+                                        <span class="sub-star">左辅</span>
+                                    </div>
+                                </div>
+                                <div class="chart-cell" data-palace="戌">
+                                    <div class="palace-name">迁移</div>
+                                    <div class="palace-stars">
+                                        <span class="main-star">廉贞</span>
+                                        <span class="sub-star">陀罗</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- 第四行 -->
+                                <div class="chart-cell" data-palace="寅">
+                                    <div class="palace-name">父母</div>
+                                    <div class="palace-stars">
+                                        <span class="main-star">七杀</span>
+                                        <span class="sub-star">化忌</span>
+                                    </div>
+                                </div>
+                                <div class="chart-cell" data-palace="丑">
+                                    <div class="palace-name">福德</div>
+                                    <div class="palace-stars">
+                                        <span class="main-star">天府</span>
+                                        <span class="sub-star">化权</span>
+                                    </div>
+                                </div>
+                                <div class="chart-cell" data-palace="子">
+                                    <div class="palace-name">田宅</div>
+                                    <div class="palace-stars">
+                                        <span class="main-star">天梁</span>
+                                        <span class="sub-star">化科</span>
+                                    </div>
+                                </div>
+                                <div class="chart-cell" data-palace="亥">
+                                    <div class="palace-name">奴仆</div>
+                                    <div class="palace-stars">
+                                        <span class="main-star">天相</span>
+                                        <span class="sub-star">化禄</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 宫位解读 -->
+                        <div class="palace-analysis">
+                            <div class="palace-tabs">
+                                <div class="tab active" data-palace="命宫">命宫</div>
+                                <div class="tab" data-palace="兄弟">兄弟</div>
+                                <div class="tab" data-palace="夫妻">夫妻</div>
+                                <div class="tab" data-palace="子女">子女</div>
+                                <div class="tab" data-palace="财帛">财帛</div>
+                                <div class="tab" data-palace="疾厄">疾厄</div>
+                                <div class="tab" data-palace="迁移">迁移</div>
+                                <div class="tab" data-palace="奴仆">奴仆</div>
+                                <div class="tab" data-palace="官禄">官禄</div>
+                                <div class="tab" data-palace="田宅">田宅</div>
+                                <div class="tab" data-palace="福德">福德</div>
+                                <div class="tab" data-palace="父母">父母</div>
+                            </div>
+                            
+                            <div class="palace-content active" data-palace="命宫">
+                                <h3>命宫解读</h3>
+                                <div class="palace-info">
+                                    <p><strong>宫位：</strong>卯宫</p>
+                                    <p><strong>主星：</strong>紫微、破军</p>
+                                    <p><strong>辅星：</strong>左辅</p>
+                                    <p><strong>四化：</strong>无</p>
+                                </div>
+                                <div class="palace-desc">
+                                    <p>紫微星入命，为帝王之星，主人聪明智慧，有领导才能，处事稳重，富有责任感。紫微与破军同宫，意味着您具有强烈的独立性和进取心，但也可能有孤傲的性格特点。</p>
+                                    <p>左辅星的加入，增强了您的协调能力和贵人运，在事业上常有得力助手，但需谨防因过于自信而忽略他人建议。</p>
+                                    <p>卯宫为木，与紫微相合，您的性格温和中带有坚韧，处事灵活而有原则，适合从事需要创新思维和决策能力的工作。</p>
+                                </div>
+                            </div>
+                            
+                            <div class="palace-content" data-palace="兄弟" style="display: none;">
+                                <h3>兄弟宫解读</h3>
+                                <div class="palace-info">
+                                    <p><strong>宫位：</strong>辰宫</p>
+                                    <p><strong>主星：</strong>贪狼</p>
+                                    <p><strong>辅星：</strong>擎羊</p>
+                                    <p><strong>四化：</strong>无</p>
+                                </div>
+                                <div class="palace-desc">
+                                    <p>贪狼入兄弟宫，表示您与兄弟姐妹关系较为复杂，可能存在竞争或利益冲突。贪狼星性格外向活跃，您的兄弟姐妹可能个性较为强势或独立。</p>
+                                    <p>擎羊为煞星，加重了兄弟宫的不稳定性，可能暗示家族中手足关系时有摩擦，建议多以包容和理解化解矛盾。</p>
+                                    <p>总体而言，您需要学会在亲情关系中保持适当距离，既要关爱但也要尊重彼此的独立空间。</p>
+                                </div>
+                            </div>
+                            
+                            <!-- 其他宫位内容类似，此处省略 -->
+                        </div>
+                        
+                        <!-- 流年运势 -->
+                        <div class="yearly-fortune">
+                            <h3>2024年流年运势</h3>
+                            <div class="fortune-summary">
+                                <p>2024年为甲辰龙年，流年太岁与您命盘中的兄弟宫相会，整体运势呈现波动上升态势。</p>
+                                <p>事业方面将有贵人相助，适合稳步推进长期规划；财运方面需谨慎投资，避免冲动决策；感情方面有桃花运，但需警惕虚假承诺；健康方面注意肝胆系统保养。</p>
+                            </div>
+                            <div class="fortune-months">
+                                <h4>重点月份提示</h4>
+                                <div class="month-items">
+                                    <div class="month-item good">
+                                        <div class="month-name">三月</div>
+                                        <div class="month-desc">贵人运旺，事业有突破</div>
+                                    </div>
+                                    <div class="month-item caution">
+                                        <div class="month-name">六月</div>
+                                        <div class="month-desc">财务需谨慎，避免大额支出</div>
+                                    </div>
+                                    <div class="month-item good">
+                                        <div class="month-name">九月</div>
+                                        <div class="month-desc">人际关系改善，社交顺利</div>
+                                    </div>
+                                    <div class="month-item caution">
+                                        <div class="month-name">十一月</div>
+                                        <div class="month-desc">健康需注意，避免过度劳累</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 操作按钮 -->
+                        <div class="result-actions">
+                            <button class="primary-btn" id="saveResultBtn">保存结果</button>
+                            <button class="secondary-btn" id="printResultBtn">打印报告</button>
+                            <button class="accent-btn" id="shareResultBtn">分享结果</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 加载动画 -->
+                <div class="loading-animation" id="loadingAnimation" style="display: none;">
+                    <div class="loading-symbol">
+                        <div class="symbol-circle"></div>
+                        <div class="symbol-stars">
+                            <span class="star-dot"></span>
+                            <span class="star-dot"></span>
+                            <span class="star-dot"></span>
+                            <span class="star-dot"></span>
+                            <span class="star-dot"></span>
+                        </div>
+                    </div>
+                    <p class="loading-text">正在推算命盘，请稍候...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>关于我们</h4>
+                    <ul>
+                        <li><a href="#">网站介绍</a></li>
+                        <li><a href="#">团队介绍</a></li>
+                        <li><a href="#">联系我们</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>服务支持</h4>
+                    <ul>
+                        <li><a href="#">使用帮助</a></li>
+                        <li><a href="#">常见问题</a></li>
+                        <li><a href="#">意见反馈</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>法律声明</h4>
+                    <ul>
+                        <li><a href="#">隐私政策</a></li>
+                        <li><a href="#">服务条款</a></li>
+                        <li><a href="#">免责声明</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>联系方式</h4>
+                    <ul>
+                        <li>邮箱：contact@tianjimiaosuan.com</li>
+                        <li>微信：TianJiMiaoSuan</li>
+                        <li>QQ群：123456789</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 天机妙算. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+    <script src="ziwei.js"></script>
+</body>
+</html> 

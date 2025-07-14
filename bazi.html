@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>八字排盘 - 天机妙算</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="bazi.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-symbol">☯</div>
+                <span class="logo-text">天机妙算</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item">首页</a>
+                <a href="bazi.html" class="nav-item active">八字排盘</a>
+                <a href="ziwei.html" class="nav-item">紫微斗数</a>
+                <a href="fortune.html" class="nav-item">运势查询</a>
+                <a href="knowledge.html" class="nav-item">命理知识</a>
+            </nav>
+            <div class="nav-user">
+                <button class="login-btn">登录</button>
+                <button class="register-btn">注册</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要内容区域 -->
+    <main class="main-content">
+        <!-- 页面标题 -->
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-title">八字排盘</h1>
+                <p class="page-subtitle">精准的生辰八字分析，深度解读性格命运</p>
+            </div>
+        </section>
+
+        <!-- 排盘内容区域 -->
+        <section class="bazi-content">
+            <div class="container">
+                <div class="bazi-layout">
+                    <!-- 信息输入区域 -->
+                    <div class="bazi-input-panel">
+                        <div class="panel-header">
+                            <h2>个人信息</h2>
+                        </div>
+                        <div class="panel-body">
+                            <form id="baziForm" class="bazi-form">
+                                <div class="form-group">
+                                    <label for="name">姓名</label>
+                                    <input type="text" id="name" name="name" placeholder="请输入您的姓名" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>性别</label>
+                                    <div class="radio-group">
+                                        <label class="radio-label">
+                                            <input type="radio" name="gender" value="male" checked>
+                                            <span class="radio-text">男</span>
+                                        </label>
+                                        <label class="radio-label">
+                                            <input type="radio" name="gender" value="female">
+                                            <span class="radio-text">女</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="birthdate">出生日期</label>
+                                    <div class="date-input">
+                                        <input type="date" id="birthdate" name="birthdate" required>
+                                        <div class="calendar-icon">📅</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="birthtime">出生时间</label>
+                                    <div class="time-input">
+                                        <input type="time" id="birthtime" name="birthtime" required>
+                                        <div class="time-icon">🕒</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="birthplace">出生地点</label>
+                                    <div class="place-input">
+                                        <input type="text" id="birthplace" name="birthplace" placeholder="请输入出生地点" required>
+                                        <div class="place-icon">📍</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group advanced-toggle">
+                                    <button type="button" id="advancedOptionsBtn" class="toggle-btn">
+                                        <span class="toggle-icon">+</span>
+                                        <span class="toggle-text">高级选项</span>
+                                    </button>
+                                </div>
+                                
+                                <div class="advanced-options" style="display: none;">
+                                    <div class="form-group">
+                                        <label class="checkbox-label">
+                                            <input type="checkbox" name="uselunar" id="uselunar">
+                                            <span class="checkbox-text">使用农历日期</span>
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="checkbox-label">
+                                            <input type="checkbox" name="dst" id="dst">
+                                            <span class="checkbox-text">考虑夏令时</span>
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="checkbox-label">
+                                            <input type="checkbox" name="truesun" id="truesun">
+                                            <span class="checkbox-text">使用真太阳时</span>
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="startage">起运岁数</label>
+                                        <input type="number" id="startage" name="startage" min="0" max="100" value="0">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button type="submit" class="primary-btn">开始排盘</button>
+                                    <button type="reset" class="secondary-btn">重置信息</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- 结果展示区域 -->
+                    <div class="bazi-result-panel" id="baziResult">
+                        <div class="panel-header">
+                            <h2>八字排盘结果</h2>
+                        </div>
+                        <div class="panel-body">
+                            <!-- 初始提示 -->
+                            <div class="result-placeholder">
+                                <div class="placeholder-icon">🔮</div>
+                                <p>请在左侧输入您的个人信息，点击"开始排盘"按钮获取结果</p>
+                            </div>
+                            
+                            <!-- 加载动画 (默认隐藏) -->
+                            <div class="loading-animation" style="display: none;">
+                                <div class="loading-symbol">
+                                    <span class="symbol-dot"></span>
+                                    <span class="symbol-dot"></span>
+                                    <span class="symbol-dot"></span>
+                                </div>
+                                <p class="loading-text">正在推算命盘，请稍候...</p>
+                            </div>
+                            
+                            <!-- 结果内容 (默认隐藏) -->
+                            <div class="result-content" style="display: none;">
+                                <!-- 基本信息 -->
+                                <div class="result-section">
+                                    <h3 class="section-title">基本信息</h3>
+                                    <div class="basic-info">
+                                        <div class="info-item">
+                                            <span class="info-label">姓名：</span>
+                                            <span class="info-value" id="resultName">-</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">性别：</span>
+                                            <span class="info-value" id="resultGender">-</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">阳历：</span>
+                                            <span class="info-value" id="resultSolar">-</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">农历：</span>
+                                            <span class="info-value" id="resultLunar">-</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">地点：</span>
+                                            <span class="info-value" id="resultLocation">-</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 四柱八字表 -->
+                                <div class="result-section">
+                                    <h3 class="section-title">四柱八字</h3>
+                                    <div class="bazi-chart">
+                                        <table class="bazi-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>年柱</th>
+                                                    <th>月柱</th>
+                                                    <th>日柱</th>
+                                                    <th>时柱</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="heavenly-stems">
+                                                    <td id="yearStem">甲</td>
+                                                    <td id="monthStem">乙</td>
+                                                    <td id="dayStem">丙</td>
+                                                    <td id="hourStem">丁</td>
+                                                </tr>
+                                                <tr class="earthly-branches">
+                                                    <td id="yearBranch">子</td>
+                                                    <td id="monthBranch">丑</td>
+                                                    <td id="dayBranch">寅</td>
+                                                    <td id="hourBranch">卯</td>
+                                                </tr>
+                                                <tr class="hidden-stems">
+                                                    <td id="yearHidden">癸</td>
+                                                    <td id="monthHidden">己辛</td>
+                                                    <td id="dayHidden">甲</td>
+                                                    <td id="hourHidden">乙</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                                <!-- 五行分析 -->
+                                <div class="result-section">
+                                    <h3 class="section-title">五行分析</h3>
+                                    <div class="wuxing-analysis">
+                                        <div class="wuxing-chart">
+                                            <canvas id="wuxingChart" width="200" height="200"></canvas>
+                                        </div>
+                                        <div class="wuxing-details">
+                                            <div class="wuxing-item">
+                                                <span class="wuxing-name">木</span>
+                                                <div class="wuxing-bar-container">
+                                                    <div class="wuxing-bar wood" style="width: 65%"></div>
+                                                    <span class="wuxing-value">65%</span>
+                                                </div>
+                                                <span class="wuxing-status">旺</span>
+                                            </div>
+                                            <div class="wuxing-item">
+                                                <span class="wuxing-name">火</span>
+                                                <div class="wuxing-bar-container">
+                                                    <div class="wuxing-bar fire" style="width: 30%"></div>
+                                                    <span class="wuxing-value">30%</span>
+                                                </div>
+                                                <span class="wuxing-status">弱</span>
+                                            </div>
+                                            <div class="wuxing-item">
+                                                <span class="wuxing-name">土</span>
+                                                <div class="wuxing-bar-container">
+                                                    <div class="wuxing-bar earth" style="width: 45%"></div>
+                                                    <span class="wuxing-value">45%</span>
+                                                </div>
+                                                <span class="wuxing-status">平</span>
+                                            </div>
+                                            <div class="wuxing-item">
+                                                <span class="wuxing-name">金</span>
+                                                <div class="wuxing-bar-container">
+                                                    <div class="wuxing-bar metal" style="width: 25%"></div>
+                                                    <span class="wuxing-value">25%</span>
+                                                </div>
+                                                <span class="wuxing-status">弱</span>
+                                            </div>
+                                            <div class="wuxing-item">
+                                                <span class="wuxing-name">水</span>
+                                                <div class="wuxing-bar-container">
+                                                    <div class="wuxing-bar water" style="width: 70%"></div>
+                                                    <span class="wuxing-value">70%</span>
+                                                </div>
+                                                <span class="wuxing-status">旺</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="wuxing-summary">
+                                        <p><strong>喜用神：</strong><span id="favorable">水</span></p>
+                                        <p><strong>忌神：</strong><span id="unfavorable">火</span></p>
+                                        <p><strong>五行分析：</strong>八字中木水旺盛，火金偏弱，土相对平衡。八字喜水，水能生木，有利于事业发展和财运。</p>
+                                    </div>
+                                </div>
+                                
+                                <!-- 性格分析 -->
+                                <div class="result-section">
+                                    <h3 class="section-title">性格分析</h3>
+                                    <div class="character-analysis">
+                                        <p>您的八字显示，您天生具有敏锐的洞察力和丰富的想象力，思维活跃，创意十足。木水旺盛的特质使您性格温和，善于沟通，容易与人建立良好的关系。</p>
+                                        <p>您做事灵活多变，适应能力强，但有时可能缺乏坚持和耐心。在面对挑战时，您善于寻找创新的解决方案，而不是按部就班地遵循传统方法。</p>
+                                        <p>您的优点是思维敏捷、善于表达、富有同情心；缺点是可能优柔寡断、情绪波动较大、有时过于理想化。</p>
+                                    </div>
+                                </div>
+                                
+                                <!-- 运势分析 (可折叠) -->
+                                <div class="result-section collapsible">
+                                    <h3 class="section-title toggle-trigger">
+                                        <span>事业运势</span>
+                                        <span class="toggle-icon">+</span>
+                                    </h3>
+                                    <div class="section-content" style="display: none;">
+                                        <p>您适合从事需要创造力和沟通能力的职业，如设计、媒体、教育、咨询等领域。水木相生的特质使您在需要创新思维的行业中容易脱颖而出。</p>
+                                        <p>事业发展初期可能会遇到一些波折，但35岁后将迎来事业的上升期。45-55岁是您事业的高峰期，此时可能获得重要的职位或成就。</p>
+                                        <p>建议增强自律性和执行力，避免因想法过多而导致行动力不足的情况。</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="result-section collapsible">
+                                    <h3 class="section-title toggle-trigger">
+                                        <span>财运分析</span>
+                                        <span class="toggle-icon">+</span>
+                                    </h3>
+                                    <div class="section-content" style="display: none;">
+                                        <p>您的财运总体较为稳定，但波动性较大。30岁前财运平平，主要依靠工作收入；30-45岁是财富积累的重要阶段，可能通过投资或副业获得额外收入。</p>
+                                        <p>您适合稳健的长期投资，而非短期投机。土相对平衡的特质使您在理财方面不会过于冒险，但也不会过于保守。</p>
+                                        <p>建议加强金融知识学习，提高资金管理能力，避免冲动消费和情绪化投资决策。</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="result-section collapsible">
+                                    <h3 class="section-title toggle-trigger">
+                                        <span>感情婚姻</span>
+                                        <span class="toggle-icon">+</span>
+                                    </h3>
+                                    <div class="section-content" style="display: none;">
+                                        <p>您在感情方面较为敏感和理想化，渴望浪漫和深度的情感连接。您可能会经历几段较为重要的感情，直到找到真正合适的伴侣。</p>
+                                        <p>理想的伴侣应具备稳定、踏实的特质，能够平衡您有时过于理想化的倾向。金或土属性较强的人可能是较为合适的伴侣选择。</p>
+                                        <p>婚后家庭生活总体和谐，但需要注意情绪管理和沟通方式，避免因小事引发不必要的争执。</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="result-section collapsible">
+                                    <h3 class="section-title toggle-trigger">
+                                        <span>健康运势</span>
+                                        <span class="toggle-icon">+</span>
+                                    </h3>
+                                    <div class="section-content" style="display: none;">
+                                        <p>您的体质偏向于木水特性，需要特别关注肝脏、肾脏和神经系统的健康。情绪波动可能对健康产生较大影响，建议学习情绪管理技巧。</p>
+                                        <p>适合您的运动包括游泳、太极、瑜伽等柔和且能促进身心平衡的活动。饮食上应避免过于寒凉和刺激性食物。</p>
+                                        <p>35-45岁是健康的关键时期，此时应特别注意作息规律，避免过度劳累和压力累积。</p>
+                                    </div>
+                                </div>
+                                
+                                <!-- 大运流年 -->
+                                <div class="result-section">
+                                    <h3 class="section-title">大运流年</h3>
+                                    <div class="dayun-timeline">
+                                        <div class="timeline-header">
+                                            <span>大运</span>
+                                            <span>岁数</span>
+                                            <span>年份</span>
+                                            <span>运势</span>
+                                        </div>
+                                        <div class="timeline-item">
+                                            <span class="dayun-pillar">戊寅</span>
+                                            <span class="age-range">0-9</span>
+                                            <span class="year-range">1990-1999</span>
+                                            <span class="fortune-level average">平</span>
+                                        </div>
+                                        <div class="timeline-item">
+                                            <span class="dayun-pillar">丁丑</span>
+                                            <span class="age-range">10-19</span>
+                                            <span class="year-range">2000-2009</span>
+                                            <span class="fortune-level good">吉</span>
+                                        </div>
+                                        <div class="timeline-item">
+                                            <span class="dayun-pillar">丙子</span>
+                                            <span class="age-range">20-29</span>
+                                            <span class="year-range">2010-2019</span>
+                                            <span class="fortune-level very-good">大吉</span>
+                                        </div>
+                                        <div class="timeline-item">
+                                            <span class="dayun-pillar">乙亥</span>
+                                            <span class="age-range">30-39</span>
+                                            <span class="year-range">2020-2029</span>
+                                            <span class="fortune-level excellent">极佳</span>
+                                        </div>
+                                        <div class="timeline-item">
+                                            <span class="dayun-pillar">甲戌</span>
+                                            <span class="age-range">40-49</span>
+                                            <span class="year-range">2030-2039</span>
+                                            <span class="fortune-level good">吉</span>
+                                        </div>
+                                        <div class="timeline-item">
+                                            <span class="dayun-pillar">癸酉</span>
+                                            <span class="age-range">50-59</span>
+                                            <span class="year-range">2040-2049</span>
+                                            <span class="fortune-level average">平</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 操作按钮 -->
+                                <div class="result-actions">
+                                    <button class="primary-btn" id="saveResultBtn">保存结果</button>
+                                    <button class="secondary-btn" id="printResultBtn">打印报告</button>
+                                    <button class="accent-btn" id="shareResultBtn">分享结果</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>关于我们</h4>
+                    <ul>
+                        <li><a href="#">网站介绍</a></li>
+                        <li><a href="#">团队介绍</a></li>
+                        <li><a href="#">联系我们</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>服务支持</h4>
+                    <ul>
+                        <li><a href="#">使用帮助</a></li>
+                        <li><a href="#">常见问题</a></li>
+                        <li><a href="#">意见反馈</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>法律声明</h4>
+                    <ul>
+                        <li><a href="#">隐私政策</a></li>
+                        <li><a href="#">服务条款</a></li>
+                        <li><a href="#">免责声明</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>联系方式</h4>
+                    <ul>
+                        <li>邮箱：contact@tianjimiaosuan.com</li>
+                        <li>微信：TianJiMiaoSuan</li>
+                        <li>QQ群：123456789</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 天机妙算. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+    <script src="bazi.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html> 

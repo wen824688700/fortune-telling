@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "index.html",
+      "src": "**",
       "use": "@vercel/static"
     }
   ],
@@ -10,6 +10,18 @@
     {
       "src": "/",
       "dest": "/index.html"
+    },
+    {
+      "src": "/bazi.html",
+      "dest": "/bazi.html"
+    },
+    {
+      "src": "/ziwei.html", 
+      "dest": "/ziwei.html"
+    },
+    {
+      "src": "/(.*\\.(css|js|png|jpg|jpeg|gif|ico|svg))",
+      "dest": "/$1"
     }
   ]
 }
